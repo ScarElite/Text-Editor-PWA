@@ -20,18 +20,20 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./index.html",
-        title: "Webpack Plugin",
+        title: "JATE",
       }),
       new InjectManifest({
         swSrc: "./src-sw.js",
-        swDest: "src-sw.js",
+        swDest: "service-worker.js",
       }),
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: "Text Editor PWA",
-        short_name: "Text Editor",
+        short_name: "JATE",
         description: "Text Editor in the browser!",
-        background_color: "#7eb4e2",
-        theme_color: "#7eb4e2",
+        background_color: "#225ca3",
+        theme_color: "#225ca3",
         start_url: "./",
         publicPath: "./",
         icons: [
@@ -56,7 +58,11 @@ module.exports = () => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: [["@babel/preset-env", { targets: "defaults" }]],
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
             },
           },
         },
